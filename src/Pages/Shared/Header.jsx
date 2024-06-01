@@ -8,6 +8,8 @@ import {
     SheetTitle,
     SheetTrigger,
   } from "@/components/ui/sheet";
+import useAuth from "@/Hooks/useAuth";
+  const {user} = useAuth
   
 
 const Header = () => {
@@ -38,7 +40,13 @@ const Header = () => {
                     {navLinks}
                 </ul>
             </div>
-            <Button className="bg-orange-500 hover:bg-red-500 rounded-[5px]" variant="destructive">Login</Button>
+          {
+            user?(
+                <Button className="bg-orange-500 hover:bg-red-500 rounded-[5px]" variant="destructive">Login</Button>
+            ) : (
+                <Button className="bg-orange-500 hover:bg-red-500 rounded-[5px]" variant="destructive">Log Out</Button>
+            )
+          }
         </div>
     );
 };
