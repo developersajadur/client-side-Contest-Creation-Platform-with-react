@@ -7,6 +7,7 @@ import Login from "@/Forms/Login";
 import Register from "@/Forms/Register";
 import Challenges from "@/Pages/Challenges/Challenges";
 import AddContests from "@/Forms/AddContests";
+import ChallengeDetails from "@/Pages/Challenges/ChallengeDetails";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
         },{
           path:"/add-contest",
           element:<AddContests></AddContests>
+        },{
+          path:"/details/:id",
+          element:<ChallengeDetails></ChallengeDetails>,
+          loader:({params}) => fetch(`${import.meta.env.VITE_API_URL}/contests/${params.id}`)
         }
     ]
   },

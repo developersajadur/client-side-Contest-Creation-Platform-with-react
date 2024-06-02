@@ -44,7 +44,7 @@ const Header = () => {
           </SheetContent>
         </Sheet>
       </div>
-      <h1 className="text-3xl font-bold">Contest</h1>
+      <Link className="" to="/"><img className="w-60" src="/image/logo.png" alt="logo" /></Link>
       <div className="hidden lg:block">
         <ul className="flex uppercase gap-8 font-semibold sm:list-none text-lg">
           {navLinks}
@@ -59,9 +59,8 @@ const Header = () => {
             <DropdownMenuContent className="bg-white text-black text-xl font-semibold">
               <DropdownMenuLabel>{user?.displayName}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
+              <DropdownMenuItem><Link to="/profile">Profile</Link></DropdownMenuItem>
+              <DropdownMenuItem><Link to="/dashboard">Dashboard</Link></DropdownMenuItem>
               <DropdownMenuItem onClick={handleLogOut} className="cursor-pointer">Log Out</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
