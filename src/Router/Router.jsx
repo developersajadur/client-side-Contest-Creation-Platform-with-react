@@ -6,6 +6,7 @@ import Home from "../Pages/Home/Home";
 import Login from "@/Forms/Login";
 import Register from "@/Forms/Register";
 import Challenges from "@/Pages/Challenges/Challenges";
+import AddContests from "@/Forms/AddContests";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,9 @@ export const router = createBrowserRouter([
         },{
           path:"/challenges",
           element:<Challenges></Challenges>
+        },{
+          path:"/add-contest",
+          element:<AddContests></AddContests>
         }
     ]
   },
