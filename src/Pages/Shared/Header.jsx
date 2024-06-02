@@ -23,8 +23,7 @@ const Header = () => {
   const navLinks = (
     <>
       <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="/contact">Contact</NavLink></li>
-      <li><NavLink to="/shop">Shop</NavLink></li>
+      <li><NavLink to="/challenges">challenges</NavLink></li>
     </>
   );
 
@@ -33,7 +32,7 @@ const Header = () => {
   };
 
   return (
-    <div className="w-full flex justify-between h-20 items-center bg-slate-500 px-1 lg:px-10">
+    <div className="w-full flex justify-between h-20 items-center bg-white border-b-[2px] px-1 lg:px-10">
       <div className="block lg:hidden">
         <Sheet>
           <SheetTrigger><GiHamburgerMenu className="text-2xl" /></SheetTrigger>
@@ -47,7 +46,7 @@ const Header = () => {
       </div>
       <h1 className="text-3xl font-bold">Contest</h1>
       <div className="hidden lg:block">
-        <ul className="flex gap-8 font-semibold sm:list-none text-lg">
+        <ul className="flex uppercase gap-8 font-semibold sm:list-none text-lg">
           {navLinks}
         </ul>
       </div>
@@ -55,10 +54,10 @@ const Header = () => {
         user ? (
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <img className="h-14 w-14 cursor-pointer rounded-full" src="https://i.ibb.co/ZW16P4y/pb-cover.jpg" alt="User" />
+              <img className="h-14 w-14 cursor-pointer rounded-full" src={user?.photoURL} alt="User" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-black text-white">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuContent className="bg-white text-black text-xl font-semibold">
+              <DropdownMenuLabel>{user?.displayName}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Billing</DropdownMenuItem>

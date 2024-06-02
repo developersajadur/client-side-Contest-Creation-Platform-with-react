@@ -5,6 +5,7 @@ import Root from "../Layout/Root";
 import Home from "../Pages/Home/Home";
 import Login from "@/Forms/Login";
 import Register from "@/Forms/Register";
+import Challenges from "@/Pages/Challenges/Challenges";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,9 @@ export const router = createBrowserRouter([
         },{
           path:"/register",
           element:<Register></Register>
+        },{
+          path:"/challenges",
+          element:<Challenges></Challenges>
         }
     ]
   },

@@ -1,63 +1,66 @@
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import useAuth from '@/Hooks/useAuth';
 import toast from 'react-hot-toast';
+import useAxiosPublic from '@/Hooks/useAxiosPublic';
+
+const imageHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const imageHostingAPI = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
 
 const Register = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false);
-  const {
-    createUser,
-    googleLogin,
-    twitterLogin,
-    updateUserProfile,
-  } = useAuth();
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+  const { createUser, googleLogin, twitterLogin, updateUserProfile } = useAuth();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSocialLogin = socialProvider => {
+  const handleSocialLogin = (socialProvider) => {
     socialProvider()
-        .then(result => {
-            if (result.user) {
-                Navigate(location?.state || "/");
-            }
-        })
-        .catch(error => {
-            toast.error(error.message);
-        });
-};
-
-const handleGoogleLogin = () => {
-    handleSocialLogin(googleLogin);
-};
-
-const handleTwitterLogin = () => {
-    handleSocialLogin(twitterLogin);
-};
-
-  const onSubmit = data =>{  
-    // create user
-    createUser(data.email, data.password )
-        .then((result) => {
-       // update user
-       updateUserProfile( data.image , data.name)
-       .then ( () => {
-        toast.success('Login successful');
+      .then(result => {
         if (result.user) {
-            Navigate(location?.state || "/");
+          navigate(location?.state || "/");
         }
+      })
+      .catch(error => {
+        toast.error(error.message);
+      });
+  };
 
-    })
-        })
-        .catch(error => {
-            toast.error(error.message);
-        });
-};
+  const handleGoogleLogin = () => {
+    handleSocialLogin(googleLogin);
+  };
+
+  const handleTwitterLogin = () => {
+    handleSocialLogin(twitterLogin);
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      const result = await createUser(data.email, data.password);
+      const formData = new FormData();
+      formData.append('image', data.photo[0]);
+
+      const res = await axiosPublic.post(imageHostingAPI, formData);
+      const imageUrl = res.data.data.display_url;
+
+   if(res){
+    await updateUserProfile(imageUrl, data.name);
+    toast.success('Registration successful');
+    if (result.user) {
+      navigate(location?.state || "/");
+    }
+   }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="flex py-20 justify-center items-center min-h-screen bg-gray-100">
@@ -125,9 +128,9 @@ const handleTwitterLogin = () => {
         </form>
         <hr className='mt-5' />
         <div className="flex gap-5 justify-center pt-4">
-                    <button onClick={handleGoogleLogin}><img className="h-9 w-9 rounded-full" src="/image/google-icon.png" alt="google" /></button>
-                    <button onClick={handleTwitterLogin}><img className="h-9 w-9 rounded-full" src="/image/twitter-icon.png" alt="twitter" /></button>
-                </div>
+          <button onClick={handleGoogleLogin}><img className="h-9 w-9 rounded-full" src="/image/google-icon.png" alt="google" /></button>
+          <button onClick={handleTwitterLogin}><img className="h-9 w-9 rounded-full" src="/image/twitter-icon.png" alt="twitter" /></button>
+        </div>
       </div>
     </div>
   );
