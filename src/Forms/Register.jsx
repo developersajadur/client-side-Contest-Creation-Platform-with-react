@@ -126,8 +126,7 @@ const handleTwitterLogin = () => {
         <hr className='mt-5' />
         <div className="flex gap-5 justify-center pt-4">
                     <button onClick={handleGoogleLogin}><img className="h-9 w-9 rounded-full" src="/image/google-icon.png" alt="google" /></button>
-                    <button onClick={handleTwitterLogin}><img className="h-9 w-9 rounded-full" src="/image/facebook-icon.png" alt="facebook" /></button>
-                    {/* <button onClick={handleTwitterLogin}><img className="h-9 w-9 rounded-full" src="./twitter-icon.png" alt="twitter" /></button> */}
+                    <button onClick={handleTwitterLogin}><img className="h-9 w-9 rounded-full" src="/image/twitter-icon.png" alt="twitter" /></button>
                 </div>
       </div>
     </div>

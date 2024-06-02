@@ -1,27 +1,52 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-// import { FaGoogle, FaFacebook, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import toast from 'react-hot-toast';
+import useAuth from '@/Hooks/useAuth';
 
 const Login = () => {
+  const { signInUser, googleLogin, twitterLogin  } = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleGoogleLogin = () => {
-    console.log('Google Login');
-  };
+  const handleSocialLogin = socialProvider => {
+    socialProvider()
+        .then(result => {
+            if (result.user) {
+                toast.success('Login successful');
+                navigate(location?.state || "/");
+            }
+        })
+        .catch(error => {
+            toast.error(error.message);
+        });
+};
 
-  const handleFacebookLogin = () => {
-    console.log('Facebook Login');
-  };
+const handleTwitterLogin = () => {
+    handleSocialLogin(twitterLogin);
+};
+
+  const handleGoogleLogin = () => {
+    handleSocialLogin(googleLogin);
+};
 
   const onSubmit = data => {
-    console.log(data);
+    signInUser(data.email, data.password)
+      .then((result) => {
+        if (result.user) {
+          toast.success('Login successful');
+          navigate(location?.state?.from || "/");
+        }
+      })
+      .catch(error => {
+        toast.error(error.message);
+      });
   };
 
   return (
@@ -74,10 +99,9 @@ const Login = () => {
         </form>
         <hr className='mt-5' />
         <div className="flex gap-5 justify-center pt-4">
-                    <button onClick={handleGoogleLogin}><img className="h-9 w-9 rounded-full" src="/image/google-icon.png" alt="google" /></button>
-                    <button onClick={handleFacebookLogin}><img className="h-9 w-9 rounded-full" src="/image/facebook-icon.png" alt="facebook" /></button>
-                    {/* <button onClick={handleTwitterLogin}><img className="h-9 w-9 rounded-full" src="./twitter-icon.png" alt="twitter" /></button> */}
-                </div>
+          <button onClick={handleGoogleLogin}><img className="h-9 w-9 rounded-full" src="/image/google-icon.png" alt="google" /></button>
+          <button onClick={handleTwitterLogin}><img className="h-9 w-9 rounded-full" src="/image/twitter-icon.png" alt="facebook" /></button>
+        </div>
       </div>
     </div>
   );
