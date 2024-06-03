@@ -1,21 +1,10 @@
-import useAxiosPublic from "@/Hooks/useAxiosPublic";
-import { useEffect, useState } from "react";
 import ChallengeCard from "../Challenges/ChallengeCard";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
+import useChallenge from "@/Hooks/useChallenge";
 
 const HomeContests = () => {
-    const axiosPublic = useAxiosPublic();
-    const [challenges, setChallenges] = useState([]);
-
-    useEffect(() => {
-        const fetchChallenges = async () => {
-            const res = await axiosPublic.get("/contests");
-            setChallenges(res.data);
-        };
-
-        fetchChallenges();
-    }, [axiosPublic]);
+    const [challenges] = useChallenge();
     
     return (
         <div>

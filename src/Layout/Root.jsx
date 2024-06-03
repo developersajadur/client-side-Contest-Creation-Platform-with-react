@@ -1,16 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "../Pages/Shared/Header";
 import Footer from "../Pages/Shared/Footer";
 
 const Root = () => {
+    const location = useLocation();
+    const noHeaderFooter = location.pathname.includes("/dashboard");
+
     return (
         <div>
-            <Header></Header>
-            <div className="lg:max-w-[1240px] mx-auto">
-            <Outlet></Outlet>
+            {!noHeaderFooter && <Header />}
+            <div className={noHeaderFooter ? "" : "lg:max-w-[1240px] mx-auto"}>
+                <Outlet />
             </div>
-            <Footer></Footer>
-            
+            {!noHeaderFooter && <Footer />}
         </div>
     );
 };

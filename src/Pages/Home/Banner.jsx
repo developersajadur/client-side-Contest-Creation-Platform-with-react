@@ -12,7 +12,7 @@ const Banner = () => {
   return (
     <div className="w-full flex flex-col-reverse md:flex-row lg:flex-row justify-between items-center gap-10">
       <div className="items-center">
-        <h1 className="text-4xl lg:text-5xl font-semibold text-[#3E54A3]">get a challenge</h1>
+        <h1 className="text-4xl lg:text-5xl font-semibold text-[#3E54A3]">take a challenge</h1>
         <p className="text-lg mt-5">
           Get A challenge, offers curated challenges to enhance skills, boost fitness, and spark creativity. Join our community, track progress, and achieve personal growth while earning rewards.
         </p>

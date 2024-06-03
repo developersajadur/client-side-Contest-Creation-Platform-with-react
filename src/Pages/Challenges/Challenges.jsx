@@ -1,36 +1,25 @@
-import useAxiosPublic from "@/Hooks/useAxiosPublic";
-import { useEffect, useState } from "react";
-import ChallengeCard from "./ChallengeCard";
+import ChallengeCard from "../Challenges/ChallengeCard";
+import useChallenge from "@/Hooks/useChallenge";
 
-const Challenges = () => {
-    const axiosPublic = useAxiosPublic();
-    const [challenges, setChallenges] = useState([]);
+const HomeContests = () => {
 
-    useEffect(() => {
-        const fetchChallenges = async () => {
-            const res = await axiosPublic.get("/contests");
-            setChallenges(res.data);
-        };
-
-        fetchChallenges();
-    }, [axiosPublic]);
+    const [challenges] = useChallenge();
 
     return (
-        <div className="">
-                        <h1 className="text-4xl font-bold text-center my-10">Let's Take A Risk</h1>
-        <div className="bg-[#FAFAFA] min-h-min grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center items-center">
+        <div>
+            <h1 className="text-4xl font-bold text-center my-10">Time to get challenge</h1>
+            <div className="bg-[#FAFAFA] min-h-min grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center items-center">
             {
                 challenges.map(item => 
                     <ChallengeCard
                     key={item._id}
                     item={item}
                     ></ChallengeCard>
-
                 )
             }
-        </div>
+            </div>
         </div>
     );
 };
 
-export default Challenges;
+export default HomeContests;

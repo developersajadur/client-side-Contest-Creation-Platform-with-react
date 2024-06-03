@@ -17,18 +17,26 @@ const AddContests = () => {
     const [image, setImage] = useState(null);
 
     const onSubmit = async (data) => {
+        // Check if contest name already exists
+        const existingContestRes = await axiosSecure.get(`/contests/${data.contestName}`);
+        if (existingContestRes.data) {
+            toast.error("Contest name already exists");
+            return;
+        }
+    
+        // If contest name is unique, proceed with adding the contest
         const formData = new FormData();
         formData.append('image', image);
-        
+    
         const res = await axiosPublic.post(imageHostingApi, formData, {
             headers: {
-              "Content-Type": "multipart/form-data",
+                "Content-Type": "multipart/form-data",
             },
         });
-
+    
         if (res.data.success) {
             const formattedDate = selectedDate ? selectedDate.toISOString().split('T')[0] : null;
-
+    
             const contestData = {
                 contestName: data.contestName,
                 image: res.data.data.display_url,
@@ -39,7 +47,7 @@ const AddContests = () => {
                 contestTags: data.contestTags.split(',').map(tag => tag.trim()),
                 contestDeadline: formattedDate,
             };
-            
+    
             const contestRes = await axiosSecure.post("/contests", contestData);
             if (contestRes.data.insertedId) {
                 toast.success("Contest added successfully");

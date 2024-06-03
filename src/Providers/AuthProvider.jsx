@@ -1,3 +1,4 @@
+import useAxiosPublic from "@/Hooks/useAxiosPublic";
 import auth from "../../firebase.config";
 import {
     FacebookAuthProvider,
@@ -24,6 +25,7 @@ const facebookProvider = new FacebookAuthProvider();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const axiosPublic = useAxiosPublic();
 
     // Password validation regex
     const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
@@ -93,7 +95,17 @@ const AuthProvider = ({ children }) => {
         const unSubscribeUser = onAuthStateChanged(auth, (currentUser) => {
             setLoading(false);
             setUser(currentUser || null);
-            // console.log(currentUser.email);
+            if(currentUser){
+                const userInfo = {email : currentUser.email}
+                axiosPublic.post("/jwt", userInfo)
+                .then(res => {
+                    if(res.data.token){
+                        localStorage.setItem("token", res.data.token);
+                    }
+                })
+            }else{
+                localStorage.removeItem("token");
+            }
         });
 
         return () => {

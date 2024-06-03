@@ -61,6 +61,7 @@ const Header = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem><Link to="/profile">Profile</Link></DropdownMenuItem>
               <DropdownMenuItem><Link to="/dashboard">Dashboard</Link></DropdownMenuItem>
+              <DropdownMenuItem><Link to="/add-contest">Add Contest</Link></DropdownMenuItem>
               <DropdownMenuItem onClick={handleLogOut} className="cursor-pointer">Log Out</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
