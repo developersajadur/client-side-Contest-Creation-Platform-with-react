@@ -10,6 +10,8 @@ import AddContests from "@/Forms/AddContests";
 import ChallengeDetails from "@/Pages/Challenges/ChallengeDetails";
 import DashBoard from "@/Layout/DashBoard";
 import ManageContests from "@/Dashboard/Admin/ManageContests";
+import UpdateContest from "@/Forms/UpdateContest";
+import ManageUsers from "@/Dashboard/Admin/ManageUsers";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +51,13 @@ export const router = createBrowserRouter([
           },{
             path:"manage-contests",
             element:<ManageContests></ManageContests>
+          },{
+            path:"update-contest/:id",
+            element:<UpdateContest></UpdateContest>,
+            loader: ({params}) =>  fetch(`${import.meta.env.VITE_API_URL}/contest/${params.id}`)
+          },{
+            path:"users",
+            element:<ManageUsers></ManageUsers>
           }
         ]
       }

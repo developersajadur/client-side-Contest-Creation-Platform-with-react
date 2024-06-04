@@ -4,11 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import toast from 'react-hot-toast';
 import useAuth from '@/Hooks/useAuth';
+import Swal from 'sweetalert2';
+import useAxiosPublic from '@/Hooks/useAxiosPublic';
 
 const Login = () => {
   const { signInUser, googleLogin, twitterLogin  } = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
   const handleTogglePassword = () => {
@@ -17,16 +20,29 @@ const Login = () => {
 
   const handleSocialLogin = socialProvider => {
     socialProvider()
-        .then(result => {
-            if (result.user) {
-                toast.success('Login successful');
-                navigate(location?.state || "/");
-            }
-        })
-        .catch(error => {
-            toast.error(error.message);
-        });
-};
+      .then(async (result) => {
+        if (result.user) {
+          const { email, displayName, photoURL } = result.user;
+          const userInfo = {
+            email,
+            name: displayName,
+            photo: photoURL,
+            role: "user",
+          };
+          await axiosPublic.post("/users", userInfo);
+          Swal.fire({
+            icon: 'success',
+            title: 'Logged in successfully',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          navigate(location?.state || "/");
+        }
+      })
+      .catch(error => {
+        toast.error(error.message); 
+      });
+  };
 
 const handleTwitterLogin = () => {
     handleSocialLogin(twitterLogin);

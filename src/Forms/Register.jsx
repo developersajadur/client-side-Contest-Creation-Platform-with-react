@@ -6,6 +6,7 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import useAuth from '@/Hooks/useAuth';
 import toast from 'react-hot-toast';
 import useAxiosPublic from '@/Hooks/useAxiosPublic';
+import Swal from 'sweetalert2';
 
 const imageHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const imageHostingAPI = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
@@ -23,8 +24,22 @@ const Register = () => {
 
   const handleSocialLogin = (socialProvider) => {
     socialProvider()
-      .then(result => {
+      .then(async (result) => {
         if (result.user) {
+          const { email, displayName, photoURL } = result.user;
+          const userInfo = {
+            email,
+            name: displayName,
+            photo: photoURL,
+            role: "user",
+          };
+          await axiosPublic.post("/users", userInfo);
+          Swal.fire({
+            icon: 'success',
+            title: 'Logged in successfully',
+            showConfirmButton: false,
+            timer: 1500
+          });
           navigate(location?.state || "/");
         }
       })
@@ -43,20 +58,32 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     try {
-      const result = await createUser(data.email, data.password);
+      await createUser(data.email, data.password);
       const formData = new FormData();
       formData.append('image', data.photo[0]);
 
       const res = await axiosPublic.post(imageHostingAPI, formData);
       const imageUrl = res.data.data.display_url;
 
-   if(res){
-    await updateUserProfile(imageUrl, data.name);
-    toast.success('Registration successful');
-    if (result.user) {
-      navigate(location?.state || "/");
-    }
-   }
+      if (res) {
+        await updateUserProfile(imageUrl, data.name);
+        const userInfo = {
+          email: data.email,
+          name: data.name,
+          photo: imageUrl,
+          role: "user",
+        };
+        const response = await axiosPublic.post("/users", userInfo);
+        if (response.data.insertedId) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Your account has been created',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          navigate(location?.state || "/");
+        }
+      }
     } catch (error) {
       toast.error(error.message);
     }

@@ -111,7 +111,7 @@ const AuthProvider = ({ children }) => {
         return () => {
             unSubscribeUser();
         };
-    }, []);
+    }, [axiosPublic]);
 
     const contextValue = {
         user,

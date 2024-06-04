@@ -23,7 +23,7 @@ const DashboardMenus = () => {
                     <li><NavLink to="/dashboard" className="flex gap-2 w-fit items-center text-lg font-medium text-[#FAFAFA]"><FaHome className="text-xl" /> Admin Home</NavLink></li>
                 <li><NavLink to="/dashboard/add-contest" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><IoMdAddCircleOutline className="text-xl" /> add contest</NavLink></li>
                 <li><NavLink to="/dashboard/manage-contests" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><TfiMenuAlt className="text-xl" /> manage Contest</NavLink></li>
-                <li><NavLink to="/dashboard/all-users" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><FaUsers className="text-xl" />manage users</NavLink></li>
+                <li><NavLink to="/dashboard/users" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><FaUsers className="text-xl" />manage users</NavLink></li>
                 </>
                 :
                 <>

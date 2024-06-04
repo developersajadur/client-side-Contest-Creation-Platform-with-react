@@ -21,10 +21,10 @@ const DashBoard = () => {
     const {user} = useAuth();
     return (
         <div className="flex w-full h-full">
-        <ScrollArea className="w-[25%] min-h-screen bg-[#3E54A3]">
+        <ScrollArea className="w-[25%] h-screen bg-[#3E54A3]">
            <DashboardMenus></DashboardMenus>
         </ScrollArea >
-        <ScrollArea className="w-[75%] px-16 min-h-screen">
+        <ScrollArea className="w-[75%] px-16 h-screen">
             <div className="w-full mt-10 flex justify-between items-center">
                 <h1 className="text-4xl font-semibold text-[#151515]">DASHBOARD</h1>
                 <Sheet>
