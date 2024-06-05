@@ -1,7 +1,7 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import cardBgImage from "../../../public/image/card-bg-img.jpeg";
 import { MdPaid } from "react-icons/md";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 
 const ChallengeDetails = () => {
     const contest = useLoaderData();
@@ -29,7 +29,7 @@ const ChallengeDetails = () => {
                             <p className="text-lg font-semibold">This is a premium challenge. You'll need to pay ${contestPrice} to start this challenge.</p>
                         </div>
                         <div className="flex justify-end">
-                            <Button className="bg-[#3E54A3] hover:bg-[#3E54A3] text-white justify-end mt-2 rounded-xl">Pay Now</Button>
+                            <Link to="/stripe-payment" className="bg-[#3E54A3] p-3 hover:bg-[#3E54A3] text-white justify-end mt-2 rounded-xl">Pay Now</Link>
                         </div>
                     </div>
                 </div>

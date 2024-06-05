@@ -96,22 +96,27 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
             setUser(currentUser || null);
             if(currentUser){
-                const userInfo = {email : currentUser.email}
+                const userInfo = { email: currentUser.email };
                 axiosPublic.post("/jwt", userInfo)
                 .then(res => {
                     if(res.data.token){
                         localStorage.setItem("token", res.data.token);
                     }
                 })
-            }else{
+                .catch(error => {
+                    console.error( error);
+                });
+            }
+            else{
                 localStorage.removeItem("token");
             }
         });
-
+    
         return () => {
             unSubscribeUser();
         };
     }, [axiosPublic]);
+    
 
     const contextValue = {
         user,
