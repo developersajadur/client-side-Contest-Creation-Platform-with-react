@@ -12,7 +12,7 @@ import DashBoard from "@/Layout/DashBoard";
 import ManageContests from "@/Dashboard/Admin/ManageContests";
 import UpdateContest from "@/Forms/UpdateContest";
 import ManageUsers from "@/Dashboard/Admin/ManageUsers";
-import StripePayment from "@/Payments/StripePayment/StripePayment";
+import ManagePayment from "@/Dashboard/Admin/ManagePayment";
 
 export const router = createBrowserRouter([
   {
@@ -31,10 +31,6 @@ export const router = createBrowserRouter([
         path:"/register",
         element:<Register></Register>
       },{
-        path:"/stripe-payment",
-        element:<StripePayment></StripePayment>,
-      },
-      {
         path:"/challenges",
         element:<Challenges></Challenges>
       },
@@ -62,6 +58,9 @@ export const router = createBrowserRouter([
           },{
             path:"users",
             element:<ManageUsers></ManageUsers>
+          },{
+            path:"manage-payments",
+            element:<ManagePayment></ManagePayment>
           }
         ]
       }
