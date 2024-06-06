@@ -13,6 +13,7 @@ import ManageContests from "@/Dashboard/Admin/ManageContests";
 import UpdateContest from "@/Forms/UpdateContest";
 import ManageUsers from "@/Dashboard/Admin/ManageUsers";
 import ManagePayment from "@/Dashboard/Admin/ManagePayment";
+import ContestRequest from "@/Dashboard/Admin/ContestRequest";
 
 export const router = createBrowserRouter([
   {
@@ -61,6 +62,9 @@ export const router = createBrowserRouter([
           },{
             path:"manage-payments",
             element:<ManagePayment></ManagePayment>
+          },{
+            path:"contests-request",
+            element:<ContestRequest></ContestRequest>
           }
         ]
       }

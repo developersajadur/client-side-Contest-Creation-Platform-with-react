@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import useAxiosSecure from '@/Hooks/useAxiosSecure';
 import useAxiosPublic from '@/Hooks/useAxiosPublic';
 import { toast } from 'react-hot-toast';
+import useAuth from '@/Hooks/useAuth';
 
 const imageHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const imageHostingApi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
@@ -15,6 +16,7 @@ const AddContests = () => {
     const { register, handleSubmit, reset, control, formState: { errors } } = useForm();
     const [selectedDate, setSelectedDate] = useState(null);
     const [image, setImage] = useState(null);
+    const {user} = useAuth();
 
     const onSubmit = async (data) => {
         // Check if contest name already exists
@@ -46,6 +48,9 @@ const AddContests = () => {
                 taskSubmissionInstructions: data.taskSubmissionInstructions,
                 contestTags: data.contestTags.split(',').map(tag => tag.trim()),
                 contestDeadline: formattedDate,
+                status: "pending",
+                userName: user?.displayName || "user name invalid",
+                userEmail: user?.email || "user email invalid",
             };
     
             const contestRes = await axiosSecure.post("/contests", contestData);
@@ -97,7 +102,8 @@ const AddContests = () => {
             <div className="mb-4">
                 <label className="block text-gray-700">Price</label>
                 <input
-                    type="text"
+                    type="number"
+                    min={0}
                     {...register('contestPrice', { required: true })}
                     className="w-full px-3 py-2 border rounded"
                 />

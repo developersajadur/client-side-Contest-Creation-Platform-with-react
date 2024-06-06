@@ -16,16 +16,16 @@ const useAxiosSecure = () => {
         // Request Interceptor
        axiosSecure.interceptors.request.use(
             (config) => {
-                console.log(localStorage.getItem("token"));
+                // console.log(localStorage.getItem("token"));
                 const token = localStorage.getItem("token");
                 if (token) {
-                    config.headers.authorization = token;  // Set token directly
+                    // config.headers.authorization = token;  // Set token directly
                 }
-                console.log('Request config:', config); // Log request config
+                // console.log('Request config:', config); // Log request config
                 return config;
             },
             (error) => {
-                console.error('Request error:', error); // Log request error
+                // console.error('Request error:', error); // Log request error
                 return Promise.reject(error);
             }
         );
@@ -33,7 +33,7 @@ const useAxiosSecure = () => {
         // Response Interceptor
        axiosSecure.interceptors.response.use(
             (response) => {
-                console.log('Response:', response); // Log response
+                // console.log('Response:', response); // Log response
                 return response;
             },
             async (error) => {

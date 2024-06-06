@@ -1,9 +1,10 @@
 import useAuth from "@/Hooks/useAuth";
-import { FaBook, FaCalendarAlt, FaHome, FaShoppingBag, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
-import { IoMdAddCircleOutline, IoMdMail } from "react-icons/io";
+import { FaCalendarAlt, FaHome, FaShoppingCart, FaUsers } from "react-icons/fa";
+import { IoMdAddCircleOutline } from "react-icons/io";
 import { MdOutlinePayment, MdPayment } from "react-icons/md";
 import { TbBasketStar, TbShoppingCartCheck } from "react-icons/tb";
-import { TfiMenu, TfiMenuAlt } from "react-icons/tfi";
+import { FaFileCircleQuestion } from "react-icons/fa6";
+import { TfiMenuAlt } from "react-icons/tfi";
 import { NavLink } from 'react-router-dom';
 
 const DashboardMenus = () => {
@@ -23,6 +24,7 @@ const DashboardMenus = () => {
                     <li><NavLink to="/dashboard" className="flex gap-2 w-fit items-center text-lg font-medium text-[#FAFAFA]"><FaHome className="text-xl" /> Admin Home</NavLink></li>
                 <li><NavLink to="/dashboard/add-contest" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><IoMdAddCircleOutline className="text-xl" /> add contest</NavLink></li>
                 <li><NavLink to="/dashboard/manage-contests" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><TfiMenuAlt className="text-xl" /> manage Contest</NavLink></li>
+                <li><NavLink to="/dashboard/contests-request" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><FaFileCircleQuestion className="text-xl" />Contests Request</NavLink></li>
                 <li><NavLink to="/dashboard/users" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><FaUsers className="text-xl" />manage users</NavLink></li>
                 <li><NavLink to="/dashboard/manage-payments" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><MdPayment className="text-xl" />manage payments</NavLink></li>
                 </>
