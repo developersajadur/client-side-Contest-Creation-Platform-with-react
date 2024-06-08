@@ -6,7 +6,7 @@ import useAxiosPublic from "@/Hooks/useAxiosPublic";
 import useAuth from "@/Hooks/useAuth";
 import toast from "react-hot-toast";
 
-const StripePaymentForm = ({contestName, contestPrice}) => {
+const StripePaymentForm = ({contestName, contestPrice, contestId}) => {
     const [error, setError] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
     const stripe = useStripe();
@@ -57,7 +57,6 @@ const StripePaymentForm = ({contestName, contestPrice}) => {
             if (confirmError) {
                 setError(confirmError);
             } else {
-                console.log('PaymentIntent:', paymentIntent);
                 if(paymentIntent.status === "succeeded"){
                     const paymentInfo = {
                         amount: contestPrice,
@@ -66,7 +65,8 @@ const StripePaymentForm = ({contestName, contestPrice}) => {
                         photo: user?.photoURL || "Photo Not Found",
                         transactionId: paymentIntent.id,
                         contestName: contestName,
-                        date:  new Date()
+                        contestId: contestId,
+                        date: new Date()
                     }
                     axiosPublic.post("/payment", paymentInfo)
                    .then(res => 
