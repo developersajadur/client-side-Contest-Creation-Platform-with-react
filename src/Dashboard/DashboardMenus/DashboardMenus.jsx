@@ -6,6 +6,7 @@ import { TbBasketStar, TbShoppingCartCheck } from "react-icons/tb";
 import { FaFileCircleQuestion } from "react-icons/fa6";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { NavLink } from 'react-router-dom';
+import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 
 const DashboardMenus = () => {
     const {user} = useAuth();
@@ -26,6 +27,7 @@ const DashboardMenus = () => {
                 <li><NavLink to="/dashboard/my-contest" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><MdAddReaction className="text-xl" />my added contests</NavLink></li>
                 <li><NavLink to="/dashboard/manage-contests" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><TfiMenuAlt className="text-xl" /> manage Contest</NavLink></li>
                 <li><NavLink to="/dashboard/contests-request" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><FaFileCircleQuestion className="text-xl" />Contests Request</NavLink></li>
+                <li><NavLink to="/dashboard/submitted-contests" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><IoCheckmarkDoneCircleSharp className="text-xl" />Submitted Contests</NavLink></li>
                 <li><NavLink to="/dashboard/users" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><FaUsers className="text-xl" />manage users</NavLink></li>
                 <li><NavLink to="/dashboard/manage-payments" className="flex w-fit gap-2 items-center text-lg font-medium text-[#FAFAFA]"><MdPayment className="text-xl" />manage payments</NavLink></li>
                 </>

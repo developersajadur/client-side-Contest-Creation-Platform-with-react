@@ -88,7 +88,9 @@ const ChallengeDetails = () => {
       userName: user?.displayName,
       userEmail: user?.email,
       importantLink: data?.importantLink,
+      contestPrice: contestPrice,
       submissionDescription: data?.submissionDescription,
+      contestDeadline: contestDeadline,
       submissionDate: new Date(),
     };
     axiosSecure.post("/submission", dataToSend).then((res) => {
@@ -149,7 +151,7 @@ const ChallengeDetails = () => {
             </div>
             <div className="flex justify-end">
               {isContestOver ? (
-                <p className="text-lg text-red-500">Sorry, the contest No More.</p>
+                <p className="text-lg text-red-500">Oops! the contest is No More.</p>
               ) : hasPaid ? (
                 submission ? (
                   <h1 className="text-green-500 font-semibold mt-2">
