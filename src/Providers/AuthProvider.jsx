@@ -34,53 +34,57 @@ const AuthProvider = ({ children }) => {
     const createUser = (email, password) => {
         if (!passwordRegex.test(password)) {
             toast.error('Weak password');
+            return Promise.reject(new Error('Weak password'));
         }
-            return createUserWithEmailAndPassword(auth, email, password);
-        }
+        return createUserWithEmailAndPassword(auth, email, password);
+    }
 
-    // update user
-
+    // Update user profile
     const updateUserProfile = (image, name) => {
-      return updateProfile(auth.currentUser, {
-          photoURL: image,
-          displayName: name
+        return updateProfile(auth.currentUser, {
+            photoURL: image,
+            displayName: name
         });
-      }
+    }
 
     // Sign in User
     const signInUser = async (email, password) => {
         try {
             return await signInWithEmailAndPassword(auth, email, password);
         } catch (error) {
-            toast.error(error.message, {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
+            toast.error(error.message);
+            return await Promise.reject(error);
         }
     };
 
     // Google login
-    const googleLogin = () => {
+    const googleLogin = async () => {
         setLoading(true);
-        return signInWithPopup(auth, googleProvider);
+        try {
+            return await signInWithPopup(auth, googleProvider);
+        } finally {
+            setLoading(false);
+        }
     };
 
     // Twitter login
-    const twitterLogin = () => {
+    const twitterLogin = async () => {
         setLoading(true);
-        return signInWithPopup(auth, twitterProvider);
+        try {
+            return await signInWithPopup(auth, twitterProvider);
+        } finally {
+            setLoading(false);
+        }
     };
 
     // Facebook login
-    const facebookLogin = () => {
+    const facebookLogin = async () => {
         setLoading(true);
-        return signInWithPopup(auth, facebookProvider);
+        try {
+            return await signInWithPopup(auth, facebookProvider);
+        } finally {
+            setLoading(false);
+        }
     };
 
     // Log out User
@@ -88,6 +92,7 @@ const AuthProvider = ({ children }) => {
         await signOut(auth);
         toast.success('Logged out successfully');
         setUser(null);
+        localStorage.removeItem("token");
     };
 
     // Observer
@@ -95,28 +100,26 @@ const AuthProvider = ({ children }) => {
         const unSubscribeUser = onAuthStateChanged(auth, (currentUser) => {
             setLoading(false);
             setUser(currentUser || null);
-            if(currentUser){
+            if (currentUser) {
                 const userInfo = { email: currentUser.email };
                 axiosPublic.post("/jwt", userInfo)
-                .then(res => {
-                    if(res.data.token){
-                        localStorage.setItem("token", res.data.token);
-                    }
-                })
-                .catch(error => {
-                    console.error( error);
-                });
-            }
-            else{
+                    .then(res => {
+                        if (res.data.token) {
+                            localStorage.setItem("token", res.data.token);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            } else {
                 localStorage.removeItem("token");
             }
         });
-    
+
         return () => {
             unSubscribeUser();
         };
     }, [axiosPublic]);
-    
 
     const contextValue = {
         user,

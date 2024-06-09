@@ -1,8 +1,75 @@
+import useAuth from "@/Hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
+import useAxiosSecure from "@/Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const UserDashboard = () => {
+    const axiosSecure = useAxiosSecure();
+    const { user } = useAuth();
+
+    const { data: userSubmissionContests = [], refetch } = useQuery({
+        queryKey: ["userSubmission", user?.email],
+        queryFn: async () => {
+            const { data } = await axiosSecure.get(`/submission/${user?.email}`);
+            return data;
+        },
+        enabled: !!user?.email,
+    });
+
     return (
-        <div>
-            
+        <div className="py-20 flex gap-4">
+            <div className="w-[40%]">
+                <div className="flex gap-5 items-center">
+                    <div className="flex flex-col justify-center">
+                        <img className="h-48 w-48 rounded-full" src={user?.photoURL} alt="User profile" />
+                        <div className="-mt-5 ml-11">
+                            <Button className="bg-[#3E54A3] p-3 hover:bg-[#3E54A3] text-white justify-end mt-2 rounded-xl">
+                                Edit Profile
+                            </Button>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 className="text-3xl font-semibold">{user?.displayName}</h1>
+                        <p className="text-lg mt-2 font-medium">{user?.email}</p>
+                        <h1 className="text-5xl mt-4 font-semibold">0 <span className="text-lg">Points</span></h1>
+                    </div>
+                </div>
+            </div>
+            <div className="w-[60%] flex flex-col text-3xl font-semibold items-center">
+                My Submissions
+                <div className="my-20 overflow-y-scroll h-96">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>No.</TableHead>
+                                <TableHead>Contest Name</TableHead>
+                                <TableHead>Price</TableHead>
+                                <TableHead>Deadline</TableHead>
+                                <TableHead>Submission Date</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {userSubmissionContests.map((item, index) => (
+                                <TableRow key={item._id}>
+                                    <TableCell className="font-medium">{index + 1}</TableCell>
+                                    <TableCell>{item.contestName}</TableCell>
+                                    <TableCell>${item.contestPrice}</TableCell>
+                                    <TableCell>{item.contestDeadline}</TableCell>
+                                    <TableCell>{new Date(item.submissionDate).toLocaleDateString()}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+            </div>
         </div>
     );
 };
