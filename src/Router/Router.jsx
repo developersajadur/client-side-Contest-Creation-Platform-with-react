@@ -18,6 +18,7 @@ import MyAddedContests from "@/Dashboard/Admin/MyAddedContests";
 import SubmittedContests from "@/Dashboard/Admin/SubmittedContests";
 import UserDashboard from "@/Dashboard/User/UserDashboard";
 import PrivateRoute from "@/PrivateRoutes/PrivateRoute";
+import LeaderBoard from "@/Pages/Challenges/LeaderBoard/LeaderBoard";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +34,7 @@ export const router = createBrowserRouter([
         element:<Login></Login>
       },{
         path: "/profile",
-        element:<UserDashboard></UserDashboard>
+        element:<PrivateRoute><UserDashboard></UserDashboard></PrivateRoute>
       },
       {
         path:"/register",
@@ -41,6 +42,9 @@ export const router = createBrowserRouter([
       },{
         path:"/challenges",
         element:<Challenges></Challenges>
+      },{
+        path:"/leader-board",
+        element:<LeaderBoard></LeaderBoard>
       },
       {
         path:"/contest/:contestName",

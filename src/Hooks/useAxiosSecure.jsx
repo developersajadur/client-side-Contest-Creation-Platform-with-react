@@ -14,17 +14,16 @@ const useAxiosSecure = () => {
 
     useEffect(() => {
         // Request Interceptor
-        axiosSecure.interceptors.request.use(function(config) {
-                const token = localStorage.getItem('token');
-                // console.log(token);
-                    config.headers.authorization = `Bearer ${token}`;
-
-                return config;
-            },
-            (error) => {
-                return Promise.reject(error);
-            }
-        );
+        axiosSecure.interceptors.request.use(function (config) {
+            const token = localStorage.getItem('access-token')
+            // console.log('request stopped by interceptors', token)
+            config.headers.authorization = `Bearer ${token}`;
+            return config;
+        }, function (error) {
+            // Do something with request error
+            return Promise.reject(error);
+        });
+    
 
         // Response Interceptor
         axiosSecure.interceptors.response.use(
@@ -36,8 +35,8 @@ const useAxiosSecure = () => {
                 const status = error.response ? error.response.status : null;
                 if (status === 401) {
                     localStorage.removeItem("token");
-                    await logOutUser();
-                    navigate("/login");
+                    // await logOutUser();
+                    // navigate("/login");
                 }
                 return Promise.reject(error);
             }
