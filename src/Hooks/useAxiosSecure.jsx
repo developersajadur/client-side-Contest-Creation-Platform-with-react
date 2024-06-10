@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 // Create an instance of Axios with a base URL
-export const axiosSecure = axios.create({
+const axiosSecure = axios.create({
     baseURL: `${import.meta.env.VITE_API_URL}/`,
 });
 
@@ -14,13 +14,15 @@ const useAxiosSecure = () => {
 
     useEffect(() => {
         // Request Interceptor
-        axiosSecure.interceptors.request.use(
-            (config) => {
-                const token = localStorage.getItem("token");
-                if (token) {
-                    config.headers.authorization = token; 
-                }
+        axiosSecure.interceptors.request.use(function(config) {
+                const token = localStorage.getItem('token');
+                // console.log(token);
+                    config.headers.authorization = `Bearer ${token}`;
+
                 return config;
+            },
+            (error) => {
+                return Promise.reject(error);
             }
         );
 

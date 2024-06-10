@@ -20,11 +20,13 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import toast from "react-hot-toast";
+import useAuth from "@/Hooks/useAuth";
 
 const SubmittedContests = () => {
   const axiosSecure = useAxiosSecure();
   const [submittedContests, setSubmittedContests] = useState([]);
   const [selectedWinner, setSelectedWinner] = useState(null);
+  const {user} = useAuth()
 
   const { data: submissionContests = [], refetch } = useQuery({
     queryKey: ["submission"],
@@ -35,7 +37,7 @@ const SubmittedContests = () => {
   });
 
   const handleSeeSubmits = async (contestId) => {
-    const { data } = await axiosSecure.get(`/submission-contest/${contestId}`);
+    const { data } = await axiosSecure.get(`/submission-contest/${user?.email}/${contestId}`);
     setSubmittedContests(data);
   };
 

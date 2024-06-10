@@ -11,6 +11,7 @@ const useChallenge = () => {
             return data;
         }
     }) 
+    // console.log(challenges);
     return [challenges, refetch]
 };
 

@@ -52,25 +52,21 @@ const UserDashboard = () => {
     const onSubmit = (data) => {
         handleImageUpload(data.photo)
           .then(imageUrl => {
-            // Update user profile
-            updateUserProfile(imageUrl , data.name);
-            Swal.fire({
-              icon: 'success',
-              title: 'Your account has been updated',
-              showConfirmButton: false,
-              timer: 1500
-            });
+            updateUserProfile(imageUrl, data.name );
+            
+            // Make an API call to update server-side user data
+            axiosSecure.patch(`/users/${user?.email}`, { photo: imageUrl, name: data.name })
+              .then(() => {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Your account has been updated',
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+              })
           })
-          .catch(error => {
-            console.error("Error updating user profile:", error);
-            // Handle errors
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Something went wrong!',
-            });
-          });
     };
+    
     
     
       // Fetch user submission contests and points
