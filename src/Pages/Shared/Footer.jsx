@@ -68,7 +68,7 @@ const Footer = () => {
         <div className="flex flex-col-reverse mt-5 lg:flex-row text-center justify-center lg:justify-between">
           <p className="text-[#FFFFFFB3] font-semibold text-xs lg:text-base mt-10 lg:mt-0">
             © all rights reserved,{" "}
-            <a target="_blank" rel="noopener noreferrer" href="https://github.com/itzmesojib">
+            <a target="_blank" rel="noopener noreferrer" href="https://github.com/developersajadur">
              Sajadur Rahman
             </a>{" "}
             . 2024
