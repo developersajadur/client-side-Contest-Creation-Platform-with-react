@@ -84,7 +84,7 @@ const Banner = () => {
             }
             </div>
             <div className="flex justify-center mt-5">
-            <NavLink to="/challenges"><Button className="bg-[#3E54A3] hover:bg-[#3E54A3] text-white">Show More</Button></NavLink>
+            <NavLink to="/challenges"><Button className="bg-[#3E54A3] hover:bg-[#3E54A3] text-white">Show All</Button></NavLink>
             </div>
         </div>
           )

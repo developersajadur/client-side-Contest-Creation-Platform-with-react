@@ -17,6 +17,7 @@ import ContestRequest from "@/Dashboard/Admin/ContestRequest";
 import MyAddedContests from "@/Dashboard/Admin/MyAddedContests";
 import SubmittedContests from "@/Dashboard/Admin/SubmittedContests";
 import UserDashboard from "@/Dashboard/User/UserDashboard";
+import PrivateRoute from "@/PrivateRoutes/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -43,40 +44,40 @@ export const router = createBrowserRouter([
       },
       {
         path:"/contest/:contestName",
-        element:<ChallengeDetails></ChallengeDetails>,
+        element:<PrivateRoute><ChallengeDetails></ChallengeDetails></PrivateRoute>,
         loader: ({ params }) => {
           const contestName = params.contestName.replace(/-/g, ' ');
           return fetch(`${import.meta.env.VITE_API_URL}/contests/${contestName}`);
         }
       },{
         path:"/dashboard",
-        element:<DashBoard></DashBoard>,
+        element:<PrivateRoute><DashBoard></DashBoard></PrivateRoute>,
         children:[
           {
             path:"add-contest",
-            element:<AddContests></AddContests>
+            element:<PrivateRoute><AddContests></AddContests></PrivateRoute>
           },{
             path:"manage-contests",
-            element:<ManageContests></ManageContests>
+            element:<PrivateRoute><ManageContests></ManageContests></PrivateRoute>
           },{
             path:"update-contest/:id",
-            element:<UpdateContest></UpdateContest>,
+            element:<PrivateRoute><UpdateContest></UpdateContest></PrivateRoute>,
             loader: ({params}) =>  fetch(`${import.meta.env.VITE_API_URL}/contest/${params.id}`)
           },{
             path:"users",
-            element:<ManageUsers></ManageUsers>
+            element:<PrivateRoute><ManageUsers></ManageUsers></PrivateRoute>
           },{
             path:"manage-payments",
-            element:<ManagePayment></ManagePayment>
+            element:<PrivateRoute><ManagePayment></ManagePayment></PrivateRoute>
           },{
             path:"contests-request",
-            element:<ContestRequest></ContestRequest>
+            element:<PrivateRoute><ContestRequest></ContestRequest></PrivateRoute>
           },{
             path:"my-contest",
-            element:<MyAddedContests></MyAddedContests>
+            element:<PrivateRoute><MyAddedContests></MyAddedContests></PrivateRoute>
           },{
             path:"submitted-contests",
-            element:<SubmittedContests></SubmittedContests>
+            element:<PrivateRoute><SubmittedContests></SubmittedContests></PrivateRoute>
           }
         ]
       }
