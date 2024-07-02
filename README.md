@@ -1,4 +1,4 @@
-<h1>This project is a client-side web application developed using React, designed to facilitate the creation and management of contests. Whether you're organizing coding competitions, design challenges, or any other type of contest, this platform provides a flexible and intuitive interface for users.</h1>
+<h5>This project is a client-side web application developed using React, designed to facilitate the creation and management of contests. Whether you're organizing coding competitions, design challenges, or any other type of contest, this platform provides a flexible and intuitive interface for users.</h5>
 
 Features
 User-Friendly Interface: Intuitive design aimed at simplifying the contest creation process.
