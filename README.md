@@ -1,4 +1,4 @@
-This project is a client-side web application developed using React, designed to facilitate the creation and management of contests. Whether you're organizing coding competitions, design challenges, or any other type of contest, this platform provides a flexible and intuitive interface for users.
+<h1>This project is a client-side web application developed using React, designed to facilitate the creation and management of contests. Whether you're organizing coding competitions, design challenges, or any other type of contest, this platform provides a flexible and intuitive interface for users.</h1>
 
 Features
 User-Friendly Interface: Intuitive design aimed at simplifying the contest creation process.
@@ -13,7 +13,7 @@ HTML5 & CSS3: Standard web technologies for structure and styling.
 Bootstrap: Frontend framework for responsive design and components.
 
 Getting Started
-1. Clone the repository: 
+1. Clone the repository: https://github.com/developersajadur/client-side-Contest-Creation-Platform-with-react.git
 
 2. Install dependencies:
 cd client-side-Contest-Creation-Platform-with-react
