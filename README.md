@@ -8,10 +8,10 @@ Scalable Architecture: Built with scalability in mind, leveraging React's compon
 Responsive Design: Ensures optimal user experience across various devices and screen sizes.
 Real-time Updates: Uses React's state and props to deliver real-time updates and interactive user feedback.
 <h2>Technologies Used</h2>
-React: Frontend library for building user interfaces.
-JavaScript (ES6+): Modern JavaScript syntax and features.
-HTML5 & CSS3: Standard web technologies for structure and styling.
-Bootstrap: Frontend framework for responsive design and components.
+React: Frontend library for building user interfaces.</br>
+JavaScript (ES6+): Modern JavaScript syntax and features.</br>
+HTML5 & CSS3: Standard web technologies for structure and styling.</br>
+Bootstrap: Frontend framework for responsive design and components.</br>
 
 Getting Started
 1. Clone the repository: https://github.com/developersajadur/client-side-Contest-Creation-Platform-with-react.git
