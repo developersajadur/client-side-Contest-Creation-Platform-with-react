@@ -8,14 +8,13 @@ Scalable Architecture: Built with scalability in mind, leveraging React's compon
 Responsive Design: Ensures optimal user experience across various devices and screen sizes.
 Real-time Updates: Uses React's state and props to deliver real-time updates and interactive user feedback.
 <h2>Technologies Used</h2>
-React: Frontend library for building user interfaces.</br>
-JavaScript (ES6+): Modern JavaScript syntax and features.</br>
-HTML5 & CSS3: Standard web technologies for structure and styling.</br>
-Bootstrap: Frontend framework for responsive design and components.</br>
+<h5>
+  Javascript, React, Tailwind, Node.js, Express.js, MongoDB 
+</h5>
 
-Getting Started
+<h2>Getting Started</h2>
+
 1. Clone the repository: https://github.com/developersajadur/client-side-Contest-Creation-Platform-with-react.git
-
 2. Install dependencies:
 cd client-side-Contest-Creation-Platform-with-react
 npm install
